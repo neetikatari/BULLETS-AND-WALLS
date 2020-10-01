@@ -1,6 +1,5 @@
-# p5.play-boilerplate
-Boiler plate for p5.play
-
+//BULLETS AND WALLS
+// project to demonstrate the function, passing argumets and return 
 
 var thickness, wall
 var speed,weight,bullet
@@ -28,22 +27,39 @@ function draw() {
     text("weight : " +weight, 200,70)
    
 
-    if(wall.x - bullet.x < bullet.width/2 +wall.width/2){
+    if(hasCollided(bullet,wall)){
       bullet.velocityX=0;
       var damage = (0.5 * weight * speed * speed) / (thickness*thickness*thickness);
       text("damage : "+damage,200,110)
-      if(damage >10){
+
+      if(damage <10){
         wall.shapeColor="green"
         textSize(28)
-        text("wall is not effective against bullet ", 200,200)
+        text("wall is effective against bullet ", 200,200)
       }
 
       else{
         wall.shapeColor="red"
         textSize(28)
-        text("wall is effective against bullet ", 200,200)
+        text("wall is not effective against bullet ", 200,200)
       }
     }
 
     drawSprites();
+}
+
+function hasCollided(bullet,wall){
+
+    bulletRrightEdge = bullet.x + bullet.width;
+    wallLeftEdge= wall.x;
+
+    if(bulletRrightEdge >= wallLeftEdge){
+
+        return true;
+
+    }
+    else {
+        return false;
+    }
+
 }
